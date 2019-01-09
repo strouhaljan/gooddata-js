@@ -2,6 +2,7 @@
 import { get, find, omit, cloneDeep } from 'lodash';
 import { XhrModule } from './xhr';
 import { ExecutionModule } from './execution';
+import { ILoadCatalogOptions, ILoadDateDataSetOptions } from './interfaces';
 
 const REQUEST_DEFAULTS = {
     types: ['attribute', 'metric', 'fact'],
@@ -50,7 +51,7 @@ const getRequiredDataSets = (options: any) => {
 export class CatalogueModule {
     constructor(private xhr: XhrModule, private execution: ExecutionModule) {}
 
-    public loadItems(projectId: string, options = {}) {
+    public loadItems(projectId: string, options: ILoadCatalogOptions = {}) {
         const request = omit({
             ...REQUEST_DEFAULTS,
             ...options,
@@ -72,7 +73,7 @@ export class CatalogueModule {
         return this.loadCatalog(projectId, request);
     }
 
-    public loadDateDataSets(projectId: string, options: any) {
+    public loadDateDataSets(projectId: string, options: ILoadDateDataSetOptions) {
         const mdObj = get(cloneDeep(options), 'bucketItems');
         const bucketItemsPromise = mdObj
             ? this.bucketItemsToExecConfig(

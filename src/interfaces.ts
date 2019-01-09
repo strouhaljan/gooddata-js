@@ -60,11 +60,14 @@ export interface IEtlPullResponse {
     };
 }
 
-export interface ILoadCatalogOptions {
-    bucketItems: IVisualizationObjectContent;
+export interface ILoadOptions {
+    bucketItems?: IVisualizationObjectContent;
     excludeObjectsWithTags?: string[];
-    filter?: string;
     includeObjectsWithTags?: string[];
+}
+
+export interface ILoadCatalogOptions extends ILoadOptions {
+    filter?: string;
     paging?: {
         limit: number;
         offset: number;
@@ -72,12 +75,9 @@ export interface ILoadCatalogOptions {
     types?: string[];
 }
 
-export interface ILoadDateDataSetOptions {
-    bucketItems: IVisualizationObjectContent;
+export interface ILoadDateDataSetOptions extends ILoadOptions {
     dataSetIdentifier?: string;
-    excludeObjectsWithTags?: string[];
     includeAvailableDateAttributes?: boolean;
-    includeObjectsWithTags?: string[];
     includeUnavailableDateDataSetsCount?: boolean;
     returnAllDateDataSets?: boolean;
     returnAllRelatedDateDataSets?: boolean;
